@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Cinzel, Cormorant_Garamond, Crimson_Pro } from "next/font/google";
 import { NavBar } from "@/components/NavBar";
 import "./globals.css";
@@ -27,6 +27,16 @@ export const metadata: Metadata = {
   title: "The Commonplace",
   description:
     "A Renaissance commonplace book for your Goodreads shelves — quotes, reflections, and the ideas that connect them.",
+  appleWebApp: {
+    capable: true,
+    title: "Commonplace",
+    statusBarStyle: "black-translucent",
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#16110d",
+  viewportFit: "cover",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
