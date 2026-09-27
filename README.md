@@ -5,18 +5,18 @@ your **currently reading**, **want to read**, **read**, and **did not finish**
 shelves from Goodreads (via the [piratereads.com](https://www.piratereads.com/)
 API), and lets you keep, next to every book:
 
-- favorite **quotes**, with page numbers and a note on why they struck you
-- **reflections** — longer thoughts a book (or a section of one) set loose
+- Keep track of your **quotes**, with page numbers and a note on why they struck you
+- Annotate your **reflections** -> longer thoughts a book (or a section of one) set loose
 - free-text **idea tags** on any quote or reflection
 
-Those ideas are drawn together into an **Idea Map** — a force-directed
+Those ideas are drawn together into an **Idea Map**, which is a force-directed
 constellation where ideas that echo the same quote or thought sit close
-together, and ideas that only share a shelf drift further apart. A
+together, and ideas that only share a shelf drift further apart, inspired by Obsidian's feature. A
 **Timeline** page shows every quote and reflection in the order you kept
 them, across every book.
 
-Single-user app: there is one Goodreads identity connected at a time, no
-accounts or sign-in.
+Single-user app: there is one Goodreads identity connected at a time, not meant for several 
+accounts or sign-in feature, at least for now.
 
 ## Stack
 
@@ -37,7 +37,7 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
-### Connecting your Goodreads shelves
+### Connecting your Goodreads shelves (⚠ Important)
 
 Go to **Settings** and enter your Goodreads user id — the number-and-slug in
 your profile URL:
