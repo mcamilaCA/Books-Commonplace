@@ -2,12 +2,15 @@
   "name": "books-commonplace",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://github.io",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "db:seed": "tsx prisma/seed.ts"
+    "db:seed": "tsx prisma/seed.ts",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
