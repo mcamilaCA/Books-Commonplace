@@ -1,0 +1,158 @@
+@import "tailwindcss";
+
+:root {
+  --color-ink: #16110d;
+  --color-ink-soft: #221a14;
+  --color-ink-soften: #2c221a;
+  --color-parchment: #f1e4c8;
+  --color-parchment-dim: #e3d1a8;
+  --color-parchment-deep: #d8c193;
+  --color-wine: #6c1f2b;
+  --color-wine-bright: #8f2f3c;
+  --color-gold: #b28a3f;
+  --color-gold-bright: #dcb769;
+  --color-gold-dim: #7c5f2c;
+  --color-sage: #46594a;
+  --color-sage-bright: #6c8a6f;
+  --color-dusk: #45607a;
+}
+
+@theme inline {
+  --color-ink: var(--color-ink);
+  --color-ink-soft: var(--color-ink-soft);
+  --color-ink-soften: var(--color-ink-soften);
+  --color-parchment: var(--color-parchment);
+  --color-parchment-dim: var(--color-parchment-dim);
+  --color-parchment-deep: var(--color-parchment-deep);
+  --color-wine: var(--color-wine);
+  --color-wine-bright: var(--color-wine-bright);
+  --color-gold: var(--color-gold);
+  --color-gold-bright: var(--color-gold-bright);
+  --color-gold-dim: var(--color-gold-dim);
+  --color-sage: var(--color-sage);
+  --color-sage-bright: var(--color-sage-bright);
+  --color-dusk: var(--color-dusk);
+
+  --font-display: var(--font-cinzel);
+  --font-serif: var(--font-cormorant);
+  --font-body: var(--font-crimson);
+}
+
+* {
+  border-color: var(--color-gold-dim);
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background-color: var(--color-ink);
+  color: var(--color-parchment);
+  font-family: var(--font-body), "Georgia", serif;
+  position: relative;
+}
+
+/* Aged-stone grain, layered over the whole page at low opacity. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='matrix' values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.35 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}
+
+/* Soft candlelight glow pooling toward the top of the viewport. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 70% 40% at 50% -5%, rgba(220, 183, 105, 0.16), transparent 60%),
+    radial-gradient(ellipse 60% 50% at 90% 100%, rgba(69, 96, 122, 0.12), transparent 65%);
+}
+
+#page-root {
+  position: relative;
+  z-index: 1;
+}
+
+::selection {
+  background: var(--color-wine);
+  color: var(--color-parchment);
+}
+
+/* Thin, ornate scrollbar in keeping with the theme. */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-ink);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-gold-dim);
+  border-radius: 999px;
+}
+
+/* A rounded Romanesque arch: generous radius on top corners only. */
+.arch-top {
+  border-radius: 42% 42% 0 0 / 22% 22% 0 0;
+}
+
+.small-caps-tracked {
+  font-variant: small-caps;
+  letter-spacing: 0.14em;
+}
+
+/* Double-line ornate frame used for quote and reflection cards. */
+.ornate-frame {
+  position: relative;
+  border: 1px solid var(--color-gold-dim);
+  outline: 1px solid var(--color-gold-dim);
+  outline-offset: 4px;
+}
+
+.ornate-frame > .corner-tl,
+.ornate-frame > .corner-tr,
+.ornate-frame > .corner-bl,
+.ornate-frame > .corner-br {
+  position: absolute;
+  width: 11px;
+  height: 11px;
+  border: 1.5px solid var(--color-gold-bright);
+}
+
+.ornate-frame > .corner-tl {
+  top: -5px;
+  left: -5px;
+  border-right: none;
+  border-bottom: none;
+}
+.ornate-frame > .corner-tr {
+  top: -5px;
+  right: -5px;
+  border-left: none;
+  border-bottom: none;
+}
+.ornate-frame > .corner-bl {
+  bottom: -5px;
+  left: -5px;
+  border-right: none;
+  border-top: none;
+}
+.ornate-frame > .corner-br {
+  bottom: -5px;
+  right: -5px;
+  border-left: none;
+  border-top: none;
+}
+
+.paper-grain {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/><feColorMatrix type='matrix' values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.05 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+}

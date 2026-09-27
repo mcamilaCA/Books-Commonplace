@@ -1,0 +1,106 @@
+// Commonplace book data model.
+// Single-user app: one Profile row holds the connected Goodreads identity.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum Shelf {
+  CURRENTLY_READING
+  WANT_TO_READ
+  READ
+  DID_NOT_FINISH
+}
+
+model Profile {
+  id              Int      @id @default(autoincrement())
+  goodreadsUserId String? // e.g. "160311020-camila"
+  displayName     String?
+  lastSyncedAt    DateTime?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model Book {
+  id            String   @id // stable goodreads numeric id parsed from book_link
+  title         String
+  author        String
+  isbn          String?
+  coverSmall     String?
+  coverMedium    String?
+  coverLarge     String?
+  goodreadsLink String?
+  avgRating     Float?
+  shelf         Shelf
+  firstSeenAt   DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  quotes      Quote[]
+  reflections Reflection[]
+
+  @@index([shelf])
+}
+
+model Quote {
+  id         String   @id @default(cuid())
+  bookId     String
+  book       Book     @relation(fields: [bookId], references: [id], onDelete: Cascade)
+  text       String
+  pageNumber Int?
+  note       String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  tags QuoteTag[]
+
+  @@index([bookId])
+}
+
+model Reflection {
+  id        String   @id @default(cuid())
+  bookId    String
+  book      Book     @relation(fields: [bookId], references: [id], onDelete: Cascade)
+  title     String?
+  body      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tags ReflectionTag[]
+
+  @@index([bookId])
+}
+
+model Tag {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  color     String? // hex accent for graph node
+  createdAt DateTime @default(now())
+
+  quotes      QuoteTag[]
+  reflections ReflectionTag[]
+}
+
+model QuoteTag {
+  quoteId String
+  quote   Quote  @relation(fields: [quoteId], references: [id], onDelete: Cascade)
+  tagId   String
+  tag     Tag    @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([quoteId, tagId])
+  @@index([tagId])
+}
+
+model ReflectionTag {
+  reflectionId String
+  reflection   Reflection @relation(fields: [reflectionId], references: [id], onDelete: Cascade)
+  tagId        String
+  tag          Tag        @relation(fields: [tagId], references: [id], onDelete: Cascade)
+
+  @@id([reflectionId, tagId])
+  @@index([tagId])
+}
