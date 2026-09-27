@@ -14,7 +14,11 @@ export default async function SettingsPage() {
     prisma.book.count(),
     prisma.quote.count(),
     prisma.reflection.count(),
-    prisma.tag.count(),
+    prisma.tag.count({
+      where: {
+        OR: [{ quotes: {some: {} }}, { reflections: {some: {} } }],
+      },
+    }),
   ]);
 
   return (
