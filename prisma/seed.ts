@@ -4,9 +4,14 @@
  * exercised end to end without a live Goodreads sync.
  */
 import { PrismaClient, Shelf } from "@prisma/client";
+import { PrismaLibSQL } from "@prisma/adapter-libsql";
 import { colorForTag } from "../src/lib/tags";
 
-const prisma = new PrismaClient();
+const adapter = new PrismaLibSQL({
+  url: process.env.TURSO_DATABASE_URL!,
+  authToken: process.env.TURSO_AUTH_TOKEN,
+});
+const prisma = new PrismaClient({ adapter });
 
 interface SeedBook {
   id: string;
